@@ -75,11 +75,11 @@ def volume_up():
 
 if __name__ == '__main__':
     acconnect.initialize()
-    acconnect.connect('127.0.0.1', 9000)
+    connect_result = acconnect.connect('127.0.0.1', 9000)
     acdebug.log('Python remote connected')
 
     window = tk.Tk()
-    window.title('Track Toolbox')
+    window.title('Track Edit Toolbox')
 
     lf_volume = tk.LabelFrame(
         window,
@@ -90,6 +90,8 @@ if __name__ == '__main__':
         column=0,
         rowspan=5,
         columnspan=3,
+        padx=BUTTON_PADX/2,
+        pady=BUTTON_PADY,
         sticky=tk.NW
     )
 
@@ -166,7 +168,9 @@ if __name__ == '__main__':
     set_vol_label.grid(
         row=13,
         column=0,
-        rowspan=3
+        rowspan=3,
+        padx=BUTTON_PADX/2,
+        pady=BUTTON_PADY,
     )
     new_vol_update = tk.Spinbox(
         lf_volume,
@@ -195,15 +199,75 @@ if __name__ == '__main__':
         pady=BUTTON_PADY,
     )
 
+    lf_panning = tk.LabelFrame(
+        window,
+        text='Panning'
+    )
+    lf_panning.grid(
+        row=0,
+        column=5,
+        rowspan=5,
+        columnspan=5,
+        padx=BUTTON_PADX/2,
+        pady=BUTTON_PADY,
+        sticky=tk.NW
+    )
+
+    b21 = tk.Button(
+        lf_panning,
+        text='Dummy',
+        width=20,
+        height=2
+    )
+    b21.grid(
+        row=0,
+        column=1,
+        padx=BUTTON_PADX,
+        pady=BUTTON_PADY,
+        rowspan=3,
+        columnspan=3
+    )
+
+    lf_pitch = tk.LabelFrame(
+        window,
+        text='Pitch'
+    )
+    lf_pitch.grid(
+        row=0,
+        column=15,
+        rowspan=5,
+        columnspan=5,
+        padx=BUTTON_PADX/2,
+        pady=BUTTON_PADY,
+        sticky=tk.NW
+    )
+
+    b31 = tk.Button(
+        lf_pitch,
+        text='Dummy',
+        width=20,
+        height=2
+    )
+    b31.grid(
+        row=0,
+        column=1,
+        padx=BUTTON_PADX,
+        pady=BUTTON_PADY,
+        rowspan=3,
+        columnspan=3
+    )
+
     lf_color = tk.LabelFrame(
         window,
         text='Color'
     )
     lf_color.grid(
         row=0,
-        column=3,
+        column=20,
         rowspan=5,
         columnspan=5,
+        padx=BUTTON_PADX/2,
+        pady=BUTTON_PADY,
         sticky=tk.NW
     )
 
@@ -224,14 +288,14 @@ if __name__ == '__main__':
         columnspan=3
     )
 
-    b21 = tk.Button(
+    b41 = tk.Button(
         lf_color,
         text='Set Color',
         width=20,
         height=2,
         command=lambda: set_color(color_variable.get())
     )
-    b21.grid(
+    b41.grid(
         row=3,
         column=1,
         padx=BUTTON_PADX,
@@ -240,14 +304,14 @@ if __name__ == '__main__':
         columnspan=3
     )
 
-    b22 = tk.Button(
+    b42 = tk.Button(
         lf_color,
         text='Unset Color',
         width=20,
         height=2,
         command=unset_color
     )
-    b22.grid(
+    b42.grid(
         row=6,
         column=1,
         padx=BUTTON_PADX,
@@ -256,6 +320,6 @@ if __name__ == '__main__':
         columnspan=3
     )
 
-    window.geometry("600x400")
+    window.geometry("860x320")
     window.call('wm', 'attributes', '.', '-topmost', '1')
     window.mainloop()
