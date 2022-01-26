@@ -1,7 +1,7 @@
 # --Description: Modify the specific value of selected items
+import math
 
 import cri.atomcraft.criatomcraft_api_lib as acconnect
-# import cri.atomcraft.project
 import cri.atomcraft.debug as acdebug
 import cri.atomcraft.project as acproject
 import tkinter as tk
@@ -18,6 +18,34 @@ COLOR_MAPPER = {
     'blue': '0, 0, 255',
     'magenta': '255, 0, 255'
 }
+
+
+def db_2_perc(db: float):
+    return 10 ** (db / 10)
+
+
+def perc_2_db(perc: float):
+    return 10 * math.log10(perc)
+
+
+def vol_up():
+    obj = acproject.get_selected_objects('Cue')['data']
+    for item in obj:
+        curr_vol = float(acproject.get_value(item, 'Volume')['data'])
+        new_vol = perc_2_db(curr_vol) + 1.0 if curr_vol != 0.0 else -40.0
+        print(new_vol, db_2_perc(new_vol))
+        acproject.set_value(item, 'Volume', min(db_2_perc(new_vol), 1.0))
+    return
+
+
+def vol_down():
+    obj = acproject.get_selected_objects('Cue')['data']
+    for item in obj:
+        curr_vol = float(acproject.get_value(item, 'Volume')['data'])
+        new_vol = perc_2_db(curr_vol) + 1.0 if curr_vol != 0.0 else -40.0
+        print(new_vol, db_2_perc(new_vol))
+        acproject.set_value(item, 'Volume', min(db_2_perc(new_vol), 1.0))
+    return
 
 
 def mute():
